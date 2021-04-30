@@ -1,0 +1,21 @@
+version: '3.6'
+
+services:
+
+  nginx:
+    image: "nginx:latest"
+    network_mode: host
+    restart: always
+    devices:
+     - /dev/fuse
+    cap_add:
+     - SYS_ADMIN
+    secrets:
+    - source: nginxconfig
+      target: /etc/nginx/nginx.conf
+    volumes:
+     - ./:/data/
+     
+secrets:
+  nginxconfig:
+    file: ./nginx.conf
