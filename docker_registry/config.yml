@@ -11,8 +11,8 @@ storage:
     rootdirectory: /var/lib/registry
 auth:
   token:
-    autoredirect: true
-    realm: ${docker_auth_url//https://host:port}/auth
+    #autoredirect: true
+    realm: "https://127.0.0.1:5001/auth"
     service: Docker registry
     issuer: Auth Service
     rootcertbundle: /root/ca.pem

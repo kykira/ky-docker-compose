@@ -6,11 +6,11 @@ token:
   issuer: "Auth Service"
   expiration: 900
 users:
-  "root":
-  password: "passwd"
+  "admin":
+    password: "$2y$05$SofQTAUCN.e/dQjfJSn/duiKTdS2dbJ.doZ5gp0vktk2XdgW3V92e" # :admin
   "": {}
 acl:
-  - match: {account: "root"}
-  actions: ["*"]
-    - match: {account: ""} # 匿名用户只能拉取镜像
-  actions: ["pull"]
+  - match: {account: "admin"}
+    actions: ["*"]
+  - match: {account: ""} # 匿名用户只能拉取镜像
+    actions: ["pull"]
