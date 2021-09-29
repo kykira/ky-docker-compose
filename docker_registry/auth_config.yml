@@ -1,0 +1,16 @@
+server:
+  addr: ":5001"
+  certificate: "/root/ca.pem"
+  key: "/root/ca.key"
+token:
+  issuer: "Auth Service"
+  expiration: 900
+users:
+  "root":
+  password: "passwd"
+  "": {}
+acl:
+  - match: {account: "root"}
+  actions: ["*"]
+    - match: {account: ""} # 匿名用户只能拉取镜像
+  actions: ["pull"]

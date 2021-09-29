@@ -1,9 +1,13 @@
 version: '3.7'
 
 services:
-  nexus:
-    image: 'sonatype/nexus3:latest'
-    network_mode: host
-    restart: always
+  registry:
+    image: registry
+    ports:
+      - "443:443"
     volumes:
-      - ./nexus-data:/nexus-data
+      - ./:/etc/docker/registry
+      - registry-data:/var/lib/registry
+
+volumes:
+  registry-data:

@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  auth:
+    image: cesanta/docker_auth
+    volumes:
+      - ./auth_config.yml:/config/auth_config.yml:ro
+      - ./:/logs
+      - ./ssl/ca.pem:/root/ca.pem:ro
+      - ./ssl/ca.key:/root/ca.key:ro
+    container_name: docker_auth
+    restart: always
+    command: --v=2 --alsologtostderr /config/auth_config.yml
+    ports:
+      - "5001:5001"
+
+  docker_registry:
+    image: registry
+    container_name: registry
+    depends_on:
+      - auth
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./config.yml:/etc/docker/registry/config.yml
+      - ./data:/var/lib/registry
+      - ./ssl/ca.pem:/root/ca.pem:ro
+      - ./ssl/ca.key:/root/ca.key:ro
+    restart: always

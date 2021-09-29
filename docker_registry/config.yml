@@ -1,0 +1,30 @@
+version: 0.1
+log:
+  fields:
+    service: registry
+storage:
+  delete:
+    enabled: true
+  cache:
+    blobdescriptor: inmemory
+  filesystem:
+    rootdirectory: /var/lib/registry
+auth:
+  token:
+    autoredirect: true
+    realm: ${docker_auth_url//https://host:port}/auth
+    service: Docker registry
+    issuer: Auth Service
+    rootcertbundle: /root/ca.pem
+http:
+  addr: :5000
+  tls:
+    certificate: /root/ca.pem
+    key: /root/ca.key
+  headers:
+    X-Content-Type-Options: [nosniff]
+health:
+  storagedriver:
+    enabled: true
+    interval: 10s
+threshold: 3
